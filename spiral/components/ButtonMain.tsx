@@ -5,7 +5,7 @@ export type ButtonProps = {
   icon: string;
 };
 
-export default async function ButtonMain({ text, icon }: ButtonProps) {
+export default function ButtonMain({ text, icon }: ButtonProps) {
   return (
     <button
       className={`min-w-80 rounded-lg p-6 text-3xl bg-cyan-400 hover:bg-cyan-500 active:bg-slate-300 transition duration-500 ease-in-out text-white m-3 shadow-md hover:shadow-xl shadow-indigo-200 flex flex-col items-center justify-center hover:scale-105`}

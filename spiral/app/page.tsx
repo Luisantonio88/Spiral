@@ -1,12 +1,13 @@
-import ButtonMain from "@/components/Button";
+import ButtonMain from "@/components/ButtonMain";
+import ButtonMainIndigo from "@/components/ButtonMainIndigo";
 import Header from "@/components/Header";
 
 export default function Home() {
   return (
-    <main className="bg-cyan-50">
+    <main>
       <Header />
-      <div className="mt-12 p-6 ml-16">
-        <h1 className="font-bold text-6xl text-indigo-600 mt-24 tracking-tight">
+      <div className="mt-12 p-6 ml-12">
+        <h1 className="font-bold text-6xl text-indigo-600 mt-16 tracking-tight">
           Spiral Harmony
         </h1>
         <h2 className="mt-6 text-3xl text-slate-500">
@@ -18,9 +19,13 @@ export default function Home() {
       </div>
       <div className="flex flex-wrap p-6">
         <ButtonMain text="Play" icon="play.svg" />
-        <ButtonMain text="Practice" icon="guitar.svg" />
-        <ButtonMain text="Theory" icon="piano.svg" />
-        <ButtonMain text="Premium" icon="play.svg" />
+        <ButtonMain text="Theory" icon="notes.svg" />
+        <ButtonMain text="Piano" icon="piano.svg" />
+        <ButtonMain text="Guitar" icon="guitar.svg" />
+        <ButtonMain text="Listen" icon="play.svg" />
+        <ButtonMain text="Videos" icon="youtube.svg" />
+        <ButtonMain text="Book" icon="book.svg" />
+        <ButtonMainIndigo text="Premium" icon="diamond.svg" />
       </div>
     </main>
   );
