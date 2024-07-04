@@ -5,8 +5,8 @@ export default function Home() {
   return (
     <main className="bg-cyan-50">
       <Header />
-      <div className="mt-12 p-6 ml-32">
-        <h1 className="font-bold text-6xl text-indigo-600 mt-52">
+      <div className="mt-12 p-6 ml-16">
+        <h1 className="font-bold text-6xl text-indigo-600 mt-24 tracking-tight">
           Spiral Harmony
         </h1>
         <h2 className="mt-6 text-3xl text-slate-500">
