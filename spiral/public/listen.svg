@@ -2,7 +2,7 @@
 <svg version="1.1" id="Uploaded to svgrepo.com" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" 
 	 width="800px" height="800px" viewBox="0 0 32 32" xml:space="preserve">
 <style type="text/css">
-	.stone_een{fill:#ffffff;}
+	.stone_een{fill:#4f46e5;}
 </style>
 <path class="stone_een" d="M17.5,27c-0.827,0-1.5-0.673-1.5-1.5v-20C16,4.673,16.673,4,17.5,4S19,4.673,19,5.5v20
 	C19,26.327,18.327,27,17.5,27z M9.5,25C8.673,25,8,24.327,8,23.5v-16C8,6.673,8.673,6,9.5,6S11,6.673,11,7.5v16

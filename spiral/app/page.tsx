@@ -7,15 +7,15 @@ export default function Home() {
   return (
     <main>
       <Header />
-      <div className="  ml-16 flex flex-row">
+      <div className="  ml-16 flex flex-row cursor-default">
         <div className="mt-24">
-          <h1 className="font-bold text-6xl text-indigo-600 mt-16 tracking-tight">
+          <h1 className="font-bold text-6xl text-gradient mt-16 tracking-tight hover:translate-x-8 hover:scale-110 transition duration-1000 ease-in">
             Spiral Harmony
           </h1>
-          <h2 className="mt-6 text-3xl text-slate-500">
+          <h2 className="mt-6 text-3xl text-slate-400 font-extrabold">
             Next generation Music Creation & Education
           </h2>
-          <h3 className="mt-6 text-2xl  tracking-wide">
+          <h3 className="mt-2 text-xl  tracking-wide italic">
             Are you ready to dive into the magical word of music and sound?
           </h3>
         </div>
