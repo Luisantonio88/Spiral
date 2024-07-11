@@ -16,10 +16,10 @@ export default function Home() {
             Next generation Music Creation & Education
           </h2>
           <h3 className="mt-2 text-xl  tracking-wide italic">
-            Are you ready to dive into the magical word of music and sound?
+            Are you ready to dive into the magical world of music and sound?
           </h3>
         </div>
-        <div className="mt-4 ml-36 scale-110">
+        <div className="mt-4 ml-auto mr-48 scale-110">
           <Image alt="logo" src="/logo.png" width={360} height={360} />
         </div>
       </div>
