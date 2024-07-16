@@ -1,4 +1,5 @@
 import Image from "next/image";
+import HomeButton from "./HomeButton";
 
 export default function Header() {
   return (
@@ -6,12 +7,7 @@ export default function Header() {
       <button className="mr-4 p-1 rounded-md hover:bg-indigo-300 transition duration-500">
         <Image alt="menu" src="/menu.svg" width={30} height={30} />
       </button>
-      <button className="text-2xl font-extrabold text-cyan-500 hover:text-cyan-600 transition duration-500 rounded">
-        spiral
-      </button>
-      <button className="font-extralight text-2xl text-cyan-600 hover:text-cyan-600 tracking-wider hover:tracking-widest transition-all duration-1000 ease-out">
-        harmony
-      </button>
+      <HomeButton />
       <button className="ml-auto mr-6 rounded-full bg-indigo-500 hover:bg-indigo-600 transition duration-500 ease-in-out text-white p-2 pl-3 pr-3 shadow-md">
         sh
       </button>
