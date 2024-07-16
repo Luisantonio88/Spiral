@@ -24,13 +24,13 @@ export default function Home() {
         </div>
       </div>
       <div className="flex flex-wrap pl-6">
-        <ButtonMain text="Play" icon="listen.svg" />
-        <ButtonMain text="Theory" icon="tv.svg" />
-        <ButtonMain text="Piano" icon="piano.svg" />
-        <ButtonMain text="Guitar" icon="guitar-pick.svg" />
-        <ButtonMain text="Listen" icon="headphones.svg" />
-        <ButtonMain text="Videos" icon="youtube.svg" />
-        <ButtonMain text="Book" icon="book.svg" />
+        <ButtonMain text="Play" icon="listen.svg" href="/play" />
+        <ButtonMain text="Theory" icon="tv.svg" href="/play" />
+        <ButtonMain text="Piano" icon="piano.svg" href="/play" />
+        <ButtonMain text="Guitar" icon="guitar-pick.svg" href="/play" />
+        <ButtonMain text="Listen" icon="headphones.svg" href="/play" />
+        <ButtonMain text="Videos" icon="youtube.svg" href="/play" />
+        <ButtonMain text="Book" icon="book.svg" href="/play" />
         <ButtonMainIndigo text="Premium" icon="diamond.svg" />
       </div>
     </main>

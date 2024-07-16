@@ -7,3 +7,11 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
+
+.whitekey {
+  @apply flex w-12 bg-cyan-50 h-44 border border-cyan-500 border-b-4 rounded-lg rounded-t-sm shadow-md hover:bg-cyan-200 active:border-b-2 transition-all duration-300 ease-in-out;
+}
+
+.blackkey {
+  @apply flex w-8 bg-cyan-500 h-24 border border-b-4 border-cyan-500 border-separate rounded-lg rounded-t-sm  relative mb-20 -mx-4 active:border-b-2 hover:bg-cyan-300 transition-all duration-300 ease-in-out;
+}
