@@ -1,188 +1,144 @@
-export default function Piano() {
+"use client";
+
+import { useEffect, useState, useRef } from "react";
+
+interface PianoProps {
+  instrument: string;
+  sprites: { [key: string]: any };
+}
+
+export default function Piano({ instrument, sprites }: PianoProps) {
+  const [audioContext, setAudioContext] = useState<AudioContext | null>(null);
+  const [audioBuffer, setAudioBuffer] = useState<AudioBuffer | null>(null);
+  const activeSources = useRef<AudioBufferSourceNode[]>([]);
+
+  useEffect(() => {
+    const loadAudioBuffer = async (url: string) => {
+      try {
+        const response = await fetch(url);
+        const arrayBuffer = await response.arrayBuffer();
+        const audioCtx = new AudioContext();
+        setAudioContext(audioCtx);
+        const buffer = await audioCtx.decodeAudioData(arrayBuffer);
+        setAudioBuffer(buffer);
+      } catch (error) {
+        console.error("Error loading audio buffer:", error);
+      }
+    };
+
+    if (instrument) {
+      loadAudioBuffer(
+        `https://storage.googleapis.com/turtle-sounds/${instrument}.mp3`
+      );
+    }
+  }, [instrument]);
+
+  const playSound = (notes: string | string[]) => {
+    if (!audioContext || !audioBuffer) return;
+
+    activeSources.current.forEach((source) => source.stop());
+    activeSources.current = [];
+
+    document
+      .querySelectorAll(".pianokey button.active, .note-fret button.active")
+      .forEach((button) => {
+        button.classList.remove("active");
+      });
+
+    if (!Array.isArray(notes)) {
+      notes = [notes];
+    }
+
+    const maxDuration = 8;
+    let longestDuration = 0;
+
+    notes.forEach((note) => {
+      const sprite = sprites[note];
+      if (sprite) {
+        const source = audioContext.createBufferSource();
+        source.buffer = audioBuffer;
+        source.connect(audioContext.destination);
+
+        const spriteDuration = sprite.end - sprite.begin;
+        const playDuration = Math.min(spriteDuration, maxDuration);
+        longestDuration = Math.max(longestDuration, playDuration);
+
+        source.start(0, sprite.begin, playDuration);
+        source.onended = () => {
+          const index = activeSources.current.indexOf(source);
+          if (index > -1) {
+            activeSources.current.splice(index, 1);
+          }
+        };
+
+        activeSources.current.push(source);
+
+        document
+          .querySelectorAll(`button[data-note="${note}"]`)
+          .forEach((button) => {
+            button.classList.add("active");
+            setTimeout(() => {
+              button.classList.remove("active");
+            }, 1000);
+          });
+      }
+    });
+  };
+
+  const playNote = (note: string) => {
+    playSound(note);
+  };
+
   return (
-    <>
-      <div className="flex items-center justify-center mt-2">
-        <div>
-          <button className="whitekey" data-note="C3">
-            <span className="hidden">C</span>
+    <div className="flex items-center justify-center mt-2">
+      {[
+        "C3",
+        "Db3",
+        "D3",
+        "Eb3",
+        "E3",
+        "F3",
+        "Gb3",
+        "G3",
+        "Ab3",
+        "A3",
+        "Bb3",
+        "B3",
+        "C4",
+        "Db4",
+        "D4",
+        "Eb4",
+        "E4",
+        "F4",
+        "Gb4",
+        "G4",
+        "Ab4",
+        "A4",
+        "Bb4",
+        "B4",
+        "C5",
+        "Db5",
+        "D5",
+        "Eb5",
+        "E5",
+        "F5",
+        "Gb5",
+        "G5",
+        "Ab5",
+        "A5",
+        "Bb5",
+        "B5",
+      ].map((note) => (
+        <div key={note}>
+          <button
+            className={note.includes("b") ? "blackkey" : "whitekey"}
+            data-note={note}
+            onClick={() => playNote(note)}
+          >
+            <span className="hidden">{note}</span>
           </button>
         </div>
-        <div>
-          <button className="blackkey" data-note="Db3">
-            <span className="hidden">Db</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="D3">
-            <span className="hidden">D</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Eb3">
-            <span className="hidden">Eb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="E3">
-            <span className="hidden">E</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="F3">
-            <span className="hidden">F</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Gb3">
-            <span className="hidden">Gb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="G3">
-            <span className="hidden">G</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Ab3">
-            <span className="hidden">Ab</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="A3">
-            <span className="hidden">A</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Bb3">
-            <span className="hidden">Bb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="B3">
-            <span className="hidden">B</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="C4">
-            <span className="hidden">C</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Db4">
-            <span className="hidden">Db</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="D4">
-            <span className="hidden">D</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Eb4">
-            <span className="hidden">Eb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="E4">
-            <span className="hidden">E</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="F4">
-            <span className="hidden">F</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Gb4">
-            <span className="hidden">Gb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="G4">
-            <span className="hidden">G</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Ab4">
-            <span className="hidden">Ab</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="A4">
-            <span className="hidden">A</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Bb4">
-            <span className="hidden">Bb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="B4">
-            <span className="hidden">B</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="C5">
-            <span className="hidden">C</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Db5">
-            <span className="hidden">Db</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="D5">
-            <span className="hidden">D</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Eb5">
-            <span className="hidden">Eb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="E5">
-            <span className="hidden">E</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="F5">
-            <span className="hidden">F</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Gb5">
-            <span className="hidden">Gb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="G5">
-            <span className="hidden">G</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Ab5">
-            <span className="hidden">Ab</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="A5">
-            <span className="hidden">A</span>
-          </button>
-        </div>
-        <div>
-          <button className="blackkey" data-note="Bb5">
-            <span className="hidden">Bb</span>
-          </button>
-        </div>
-        <div>
-          <button className="whitekey" data-note="B5">
-            <span className="hidden">B</span>
-          </button>
-        </div>
-      </div>
-    </>
+      ))}
+    </div>
   );
 }
