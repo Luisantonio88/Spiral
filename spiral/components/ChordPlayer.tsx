@@ -1,7 +1,7 @@
 export default function ChordPlayer() {
   return (
     <>
-      <div className="flex flex-row items-center justify-center mt-12">
+      <div className="flex flex-row items-center justify-center mt-12 gap-1">
         <div className="chord-key Gb">
           <button className="chord-button III" data-key="Bb" data-type="minor">
             Bb-
