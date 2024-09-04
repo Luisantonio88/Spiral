@@ -37,7 +37,7 @@ export default function Home() {
         <Piano instrument={instrument} sprites={sprites} />
       </div>
       <div>
-        <ChordPlayer />
+        <ChordPlayer instrument={instrument} sprites={sprites} />
       </div>
       <InstrumentSelector onInstrumentChange={setInstrument} />
     </>
