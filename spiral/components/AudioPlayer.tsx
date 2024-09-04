@@ -25,35 +25,58 @@ const AudioPlayer = forwardRef(
     const activeSources = useRef<AudioBufferSourceNode[]>([]);
 
     useEffect(() => {
+      let audioCtx: AudioContext | null = null;
+
       const loadAudioBuffer = async (url: string) => {
         try {
+          // Ensure the previous context is closed
+          if (audioContext) {
+            audioContext
+              .close()
+              .catch((error) =>
+                console.error("Error closing audio context:", error)
+              );
+          }
+
+          audioCtx = new AudioContext();
           const response = await fetch(url);
           const arrayBuffer = await response.arrayBuffer();
-          const audioCtx = new AudioContext();
-          setAudioContext(audioCtx);
           const buffer = await audioCtx.decodeAudioData(arrayBuffer);
+
+          setAudioContext(audioCtx);
           setAudioBuffer(buffer);
         } catch (error) {
           console.error("Error loading audio buffer:", error);
         }
       };
 
-      if (instrument && !audioBuffer) {
+      if (instrument) {
         loadAudioBuffer(
           `https://storage.googleapis.com/turtle-sounds/${instrument}.mp3`
         );
       }
 
       return () => {
+        // Stop active sources
         activeSources.current.forEach((source) => source.stop());
-        audioContext?.close();
+        activeSources.current = [];
+
+        // Close the context if it exists
+        if (audioContext) {
+          audioContext
+            .close()
+            .catch((error) =>
+              console.error("Error closing audio context:", error)
+            );
+        }
       };
-    }, [instrument]);
+    }, [instrument]); // Do not include audioContext here to avoid re-triggering
 
     useImperativeHandle(ref, () => ({
       playSound(notes: string | string[]) {
         if (!audioContext || !audioBuffer) return;
 
+        // Ensure no sources are active before playing new sounds
         activeSources.current.forEach((source) => source.stop());
         activeSources.current = [];
 
@@ -68,6 +91,12 @@ const AudioPlayer = forwardRef(
           const sprite = sprites[note];
           if (sprite) {
             console.log(`Playing note: ${note}`, sprite);
+
+            // Check if audioContext is still valid
+            if (audioContext.state === "closed") {
+              console.error("AudioContext is closed");
+              return;
+            }
 
             const source = audioContext.createBufferSource();
             source.buffer = audioBuffer;
