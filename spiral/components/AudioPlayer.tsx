@@ -38,7 +38,7 @@ const AudioPlayer = forwardRef(
         }
       };
 
-      if (instrument) {
+      if (instrument && !audioBuffer) {
         loadAudioBuffer(
           `https://storage.googleapis.com/turtle-sounds/${instrument}.mp3`
         );
@@ -96,5 +96,7 @@ const AudioPlayer = forwardRef(
     return null;
   }
 );
+
+AudioPlayer.displayName = "AudioPlayer";
 
 export default AudioPlayer;
