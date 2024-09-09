@@ -21,9 +21,13 @@
 }
 
 .chord-key {
-  @apply flex flex-col items-center;
+  @apply flex flex-col items-center hover:bg-slate-50 rounded-xl p-1 border border-white;
 }
 
 .chord-button {
   @apply flex w-14 h-14 text-lg  m-1 shadow-cyan-500 shadow rounded-xl items-center justify-center hover:bg-cyan-400 hover:shadow-none  active:bg-white text-cyan-700 hover:text-white active:text-cyan-700 transition-all duration-300 ease-in-out;
+}
+
+.main-key {
+  @apply bg-cyan-50 rounded-xl hover:bg-cyan-100;
 }

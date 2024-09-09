@@ -53,8 +53,10 @@ export default function Home() {
           chordType={chordType}
         />{" "}
       </div>
-      <InstrumentSelector onInstrumentChange={setInstrument} />
-      <ChordTypeSelector onChordTypeChange={setChordType} />
+      <div className="flex flex-row justify-center gap-8">
+        <InstrumentSelector onInstrumentChange={setInstrument} />
+        <ChordTypeSelector onChordTypeChange={setChordType} />
+      </div>
     </>
   );
 }

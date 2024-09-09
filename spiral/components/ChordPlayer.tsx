@@ -72,7 +72,7 @@ export default function ChordPlayer({
       maj7: ["C3", "E4", "G4", "B4"],
       min7: ["C3", "Eb4", "G4", "Bb4"],
       7: ["C3", "E4", "G4", "Bb4"],
-      min7b5: ["F3", "Eb4", "Ab4", "C5"],
+      min7b5: ["F3", "Eb4", "Ab4", "B4"],
     },
     Gb: {
       major: ["Gb3", "Db4", "Gb4", "Bb4"],
@@ -151,7 +151,7 @@ export default function ChordPlayer({
         sprites={sprites}
       />{" "}
       {chordType === "triads" && (
-        <div className="flex flex-row items-center justify-center mt-12 gap-1">
+        <div className="flex flex-row items-center justify-center mt-8">
           <div className="chord-key Gb">
             <button
               className="chord-button III"
@@ -727,7 +727,7 @@ export default function ChordPlayer({
         </div>
       )}
       {chordType === "7th" && (
-        <div className="flex flex-row items-center justify-center mt-12 gap-1">
+        <div className="flex flex-row items-center justify-center mt-8">
           <div className="chord-key Gb">
             <button
               className="chord-button III"
