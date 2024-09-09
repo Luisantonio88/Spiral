@@ -25,5 +25,5 @@
 }
 
 .chord-button {
-  @apply flex w-14 h-14 text-2xl  m-1 shadow-cyan-500 shadow rounded-xl items-center justify-center hover:bg-cyan-400 hover:shadow-none  active:bg-white text-cyan-700 hover:text-white active:text-cyan-700 transition-all duration-300 ease-in-out;
+  @apply flex w-14 h-14 text-lg  m-1 shadow-cyan-500 shadow rounded-xl items-center justify-center hover:bg-cyan-400 hover:shadow-none  active:bg-white text-cyan-700 hover:text-white active:text-cyan-700 transition-all duration-300 ease-in-out;
 }

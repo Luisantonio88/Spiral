@@ -50,6 +50,7 @@ export default function Home() {
           instrument={instrument}
           sprites={sprites} // Provide your sprites
           setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
+          chordType={chordType}
         />{" "}
       </div>
       <InstrumentSelector onInstrumentChange={setInstrument} />
