@@ -25,9 +25,17 @@
 }
 
 .chord-button {
-  @apply flex w-14 h-14 text-lg  m-1 shadow-cyan-500 shadow rounded-xl items-center justify-center hover:bg-cyan-400 hover:shadow-none  active:bg-white text-cyan-700 hover:text-white active:text-cyan-700 transition-all duration-300 ease-in-out;
+  @apply flex w-14 h-12 text-base  m-1 shadow-cyan-500 shadow rounded-xl items-center justify-center hover:bg-cyan-400 hover:shadow-none  active:bg-white text-cyan-700 hover:text-white active:text-cyan-700 transition-all duration-300 ease-in-out;
 }
 
 .main-key {
-  @apply bg-cyan-50 rounded-xl hover:bg-cyan-100;
+  @apply bg-cyan-50;
+}
+
+.I {
+  @apply bg-cyan-100;
+}
+
+.VI {
+  @apply bg-cyan-100;
 }
