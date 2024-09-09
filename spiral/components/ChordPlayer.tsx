@@ -1,20 +1,21 @@
 "use client";
 
-import { useRef } from "react";
+import React, { useRef } from "react";
 import AudioPlayer from "./AudioPlayer";
 
 interface ChordPlayerProps {
   instrument: string;
   sprites: { [key: string]: any };
+  setActiveKeys: (keys: string[]) => void;
 }
 
-export default function ChordPlayer({ instrument, sprites }: ChordPlayerProps) {
+export default function ChordPlayer({
+  instrument,
+  sprites,
+  setActiveKeys,
+}: ChordPlayerProps) {
   type ChordType = "major" | "minor" | "dim";
-  type Chords = {
-    [key: string]: {
-      [key in ChordType]: string[];
-    };
-  };
+  type Chords = { [key: string]: { [key in ChordType]: string[] } };
 
   const chords: Chords = {
     C: {
@@ -86,8 +87,9 @@ export default function ChordPlayer({ instrument, sprites }: ChordPlayerProps) {
   const playChord = (chordKey: string, chordType: ChordType) => {
     if (audioPlayerRef.current) {
       const notes = chords[chordKey][chordType];
-      console.log(notes);
       audioPlayerRef.current.playSound(notes);
+      setActiveKeys(notes);
+      setTimeout(() => setActiveKeys([]), 500); // Reset active keys after some time
     }
   };
 

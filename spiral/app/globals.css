@@ -16,6 +16,10 @@
   @apply flex w-8 bg-cyan-500 h-24 border border-b-4 border-cyan-500 border-separate rounded-lg rounded-t-sm  relative mb-20 -mx-4 active:border-b-2 hover:bg-cyan-300 transition-all duration-300 ease-in-out;
 }
 
+.key-active {
+  @apply bg-cyan-300 border-b-2;
+}
+
 .chord-key {
   @apply flex flex-col items-center;
 }
