@@ -18,6 +18,7 @@ export default function InstrumentSelector({
           id="instrument-selector"
           className="shadow shadow-cyan-500 rounded-lg p-2"
           onChange={handleChange}
+          defaultValue={"rhodes"}
         >
           <option value="piano">Piano</option>
           <option value="rhodes">Rhodes</option>

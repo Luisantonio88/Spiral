@@ -1,6 +1,7 @@
 "use client";
 
 import ChordPlayer from "@/components/ChordPlayer";
+import ChordTypeSelector from "@/components/ChordTypeSelector";
 import Header from "@/components/Header";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
@@ -9,6 +10,8 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
   const [instrument, setInstrument] = useState<string>("rhodes");
+  const [chordType, setChordType] = useState<string>("triads"); // Initialize chord type state
+
   const [sprites, setSprites] = useState<{ [key: string]: any }>({});
 
   const fetchDataForInstrument = async (inst: string) => {
@@ -50,6 +53,7 @@ export default function Home() {
         />{" "}
       </div>
       <InstrumentSelector onInstrumentChange={setInstrument} />
+      <ChordTypeSelector onChordTypeChange={setChordType} />
     </>
   );
 }
