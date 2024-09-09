@@ -23,15 +23,6 @@ export default function ChordTypeSelector({
         >
           <option value="triads">Triads</option>
           <option value="7th">7th Chords</option>
-          <option value="9th">9th Chords</option>
-          <option value="11th">11th Chords</option>
-          <option value="13th">13th Chords</option>
-          <option value="sus2">Suspended 2nd</option>
-          <option value="sus4">Suspended 4th</option>
-          <option value="add9">Add9</option>
-          <option value="6th">6th Chords</option>
-          <option value="dim">Diminished</option>
-          <option value="aug">Augmented</option>
         </select>
       </div>
     </div>
