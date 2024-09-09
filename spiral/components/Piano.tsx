@@ -6,9 +6,16 @@ import AudioPlayer from "./AudioPlayer";
 interface PianoProps {
   instrument: string;
   sprites: { [key: string]: any };
+  activeKeys: string[];
+  setActiveKeys: (keys: string[]) => void;
 }
 
-export default function Piano({ instrument, sprites }: PianoProps) {
+export default function Piano({
+  instrument,
+  sprites,
+  activeKeys,
+  setActiveKeys,
+}: PianoProps) {
   const audioPlayerRef = useRef<{
     playSound: (notes: string | string[]) => void;
   } | null>(null);
@@ -60,7 +67,9 @@ export default function Piano({ instrument, sprites }: PianoProps) {
       ].map((note) => (
         <div key={note}>
           <button
-            className={note.includes("b") ? "blackkey" : "whitekey"}
+            className={`key ${note.includes("b") ? "blackkey" : "whitekey"} ${
+              activeKeys.includes(note) ? "key-active" : ""
+            }`}
             data-note={note}
             onClick={() => playSound(note)}
           >

@@ -1,13 +1,17 @@
 "use client";
 
 import ChordPlayer from "@/components/ChordPlayer";
+import ChordTypeSelector from "@/components/ChordTypeSelector";
 import Header from "@/components/Header";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [instrument, setInstrument] = useState<string>("piano");
+  const [activeKeys, setActiveKeys] = useState<string[]>([]);
+  const [instrument, setInstrument] = useState<string>("rhodes");
+  const [chordType, setChordType] = useState<string>("triads"); // Initialize chord type state
+
   const [sprites, setSprites] = useState<{ [key: string]: any }>({});
 
   const fetchDataForInstrument = async (inst: string) => {
@@ -34,12 +38,25 @@ export default function Home() {
     <>
       <Header />
       <div className="mt-16">
-        <Piano instrument={instrument} sprites={sprites} />
+        <Piano
+          instrument={instrument}
+          sprites={sprites} // Provide your sprites
+          activeKeys={activeKeys} // Pass activeKeys as a prop
+          setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
+        />{" "}
       </div>
       <div>
-        <ChordPlayer instrument={instrument} sprites={sprites} />
+        <ChordPlayer
+          instrument={instrument}
+          sprites={sprites} // Provide your sprites
+          setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
+          chordType={chordType}
+        />{" "}
       </div>
-      <InstrumentSelector onInstrumentChange={setInstrument} />
+      <div className="flex flex-row justify-center gap-8">
+        <InstrumentSelector onInstrumentChange={setInstrument} />
+        <ChordTypeSelector onChordTypeChange={setChordType} />
+      </div>
     </>
   );
 }
