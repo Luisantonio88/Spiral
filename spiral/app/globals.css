@@ -39,3 +39,7 @@
 .VI {
   @apply bg-cyan-100;
 }
+
+.bar {
+  @apply flex justify-center items-center text-2xl text-cyan-700 w-52 h-32 shadow-cyan-500 shadow rounded-xl hover:bg-cyan-100 hover:shadow-none active:bg-white transition duration-500;
+}

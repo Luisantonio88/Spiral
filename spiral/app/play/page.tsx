@@ -1,5 +1,6 @@
 "use client";
 
+import Bars from "@/components/Bars";
 import ChordPlayer from "@/components/ChordPlayer";
 import ChordTypeSelector from "@/components/ChordTypeSelector";
 import Header from "@/components/Header";
@@ -57,6 +58,7 @@ export default function Home() {
         <InstrumentSelector onInstrumentChange={setInstrument} />
         <ChordTypeSelector onChordTypeChange={setChordType} />
       </div>
+      <Bars />
     </>
   );
 }
