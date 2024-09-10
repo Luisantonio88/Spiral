@@ -2,6 +2,7 @@
 
 import React, { useRef } from "react";
 import AudioPlayer from "./AudioPlayer";
+import ChordManager from "./ChordManager"; // Import ChordManager
 import { ChordType, chords } from "@/app/chords";
 
 interface ChordPlayerProps {
@@ -17,16 +18,13 @@ export default function ChordPlayer({
   setActiveKeys,
   chordType,
 }: ChordPlayerProps) {
-  const audioPlayerRef = useRef<{
-    playSound: (notes: string | string[]) => void;
+  const chordManagerRef = useRef<{
+    playChord: (chordName: string, chordType: ChordType) => void;
   } | null>(null);
 
   const playChord = (chordKey: string, chordType: ChordType) => {
-    if (audioPlayerRef.current) {
-      const notes = chords[chordKey][chordType];
-      audioPlayerRef.current.playSound(notes);
-      setActiveKeys(notes);
-      setTimeout(() => setActiveKeys([]), 500); // Reset active keys after some time
+    if (chordManagerRef.current) {
+      chordManagerRef.current.playChord(chordKey, chordType);
     }
   };
 
@@ -40,11 +38,12 @@ export default function ChordPlayer({
 
   return (
     <>
-      <AudioPlayer
-        ref={audioPlayerRef}
+      <ChordManager
+        ref={chordManagerRef}
         instrument={instrument}
         sprites={sprites}
-      />{" "}
+        setActiveKeys={setActiveKeys} // Pass setActiveKeys to ChordManager
+      />
       {chordType === "triads" && (
         <div className="flex flex-row items-center justify-center mt-8">
           <div className="chord-key Gb">
