@@ -55,16 +55,22 @@ export default function Bars({ playChord }: BarsProps) {
       setIsPlaying(true);
       const beatInterval = (60 / tempo) * 1000; // Convert BPM to milliseconds for a beat
 
+      // Play the first bar immediately
+      const firstBar = bars[0];
+      if (firstBar.chordKey && firstBar.chordType) {
+        playChord(firstBar.chordKey, firstBar.chordType);
+      }
+
+      // Start interval after the first bar is played
       intervalRef.current = setInterval(() => {
-        // Use a functional update to ensure you get the most up-to-date currentBar
         setCurrentBar((prevCurrentBar) => {
-          const bar = bars[prevCurrentBar];
+          const nextBar = (prevCurrentBar + 1) % totalBars;
+          const bar = bars[nextBar];
           if (bar.chordKey && bar.chordType) {
             playChord(bar.chordKey, bar.chordType);
           }
 
-          // Move to the next bar, wrap around at the last bar
-          return (prevCurrentBar + 1) % totalBars;
+          return nextBar; // Move to the next bar, wrap around at the last bar
         });
       }, beatInterval * 4); // 4 beats per bar (4/4 time)
     }
@@ -115,7 +121,9 @@ export default function Bars({ playChord }: BarsProps) {
       {bars.map((bar, index) => (
         <div
           key={bar.id}
-          className="bar w-20 h-20 border text-center flex justify-center items-center"
+          className={`bar w-20 h-20 border text-center flex justify-center items-center ${
+            index === currentBar ? "active-bar" : ""
+          }`}
           onDrop={(e) => onDrop(e, index)}
           onDragOver={onDragOver}
           onClick={() => handleBarClick(bar.chordKey, bar.chordType)}

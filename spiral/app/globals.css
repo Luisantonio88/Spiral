@@ -41,9 +41,13 @@
 }
 
 .bar {
-  @apply flex justify-center items-center text-2xl text-cyan-600 active:text-cyan-700 active:bg-cyan-50 w-48 h-24 shadow-cyan-500 border-none shadow bg-slate-50 rounded-xl hover:bg-cyan-400 hover:text-white hover:shadow-none  transition duration-500;
+  @apply flex justify-center items-center text-2xl text-cyan-600 active:text-cyan-700 active:bg-cyan-50 w-48 h-24 shadow-cyan-500 border-none shadow bg-slate-50 rounded-xl hover:bg-cyan-400 hover:text-white hover:shadow-none hover:scale-105 transition duration-500 cursor-pointer;
+}
+
+.active-bar {
+  @apply bg-cyan-400 text-white shadow-lg scale-105;
 }
 
 .bars-button {
-  @apply rounded-full p-2 hover:bg-cyan-500 active:bg-cyan-200 bg-cyan-400 transition duration-500;
+  @apply rounded-full p-2  hover:scale-110 active:bg-cyan-200 bg-cyan-400 transition duration-500;
 }
