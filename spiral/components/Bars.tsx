@@ -24,6 +24,7 @@ export default function Bars({ playChord }: BarsProps) {
   const [tempo, setTempo] = useState<number>(120); // Tempo in BPM
   const [currentBar, setCurrentBar] = useState<number>(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const totalBars = bars.length;
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     const chord = e.dataTransfer.getData("chord");
@@ -60,11 +61,13 @@ export default function Bars({ playChord }: BarsProps) {
         if (bar.chordKey && bar.chordType) {
           playChord(bar.chordKey, bar.chordType);
         }
-        setCurrentBar((prev) => (prev + 1) % bars.length);
+
+        // Move to the next bar
+        setCurrentBar((prev) => (prev + 1) % totalBars);
       }, beatInterval * 4); // 4 beats per bar (4/4 time)
 
       // Stop the playback after one loop of all bars
-      setTimeout(() => stopPlaying(), beatInterval * 4 * bars.length);
+      setTimeout(() => stopPlaying(), beatInterval * 4 * totalBars);
     }
   };
 
@@ -73,7 +76,7 @@ export default function Bars({ playChord }: BarsProps) {
       clearInterval(intervalRef.current);
       intervalRef.current = null;
       setIsPlaying(false);
-      setCurrentBar(0);
+      setCurrentBar(0); // Reset to the first bar
     }
   };
 
@@ -96,8 +99,8 @@ export default function Bars({ playChord }: BarsProps) {
             className="bars-button"
             src={"/play.svg"}
             alt="play"
-            width={40}
-            height={40}
+            width={45}
+            height={45}
           />
         </button>
         <button onClick={stopPlaying} disabled={!isPlaying}>
@@ -105,8 +108,8 @@ export default function Bars({ playChord }: BarsProps) {
             className="bars-button"
             src={"/stop.svg"}
             alt="stop"
-            width={40}
-            height={40}
+            width={45}
+            height={45}
           />
         </button>
       </div>
@@ -121,9 +124,9 @@ export default function Bars({ playChord }: BarsProps) {
           {bar.chordName}
         </div>
       ))}
-      <div className="flex flex-col items-center mt-4">
+      <div className="flex flex-col items-center justify-center">
         <label htmlFor="tempo" className="mb-2">
-          Tempo (BPM)
+          Tempo
         </label>
         <input
           id="tempo"
@@ -133,7 +136,7 @@ export default function Bars({ playChord }: BarsProps) {
           min={30}
           max={240}
           step={1}
-          className="p-2 border rounded"
+          className="p-1 shadow shadow-cyan-500 rounded-lg"
         />
       </div>
     </div>
