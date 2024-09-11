@@ -45,5 +45,5 @@
 }
 
 .bars-button {
-  @apply shadow shadow-cyan-500 rounded-full hover:bg-cyan-100 hover:shadow-none active:bg-cyan-50 transition duration-500;
+  @apply shadow shadow-cyan-500 rounded-xl hover:bg-cyan-100 hover:shadow-none active:bg-cyan-50 transition duration-500;
 }

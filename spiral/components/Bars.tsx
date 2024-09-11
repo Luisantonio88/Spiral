@@ -56,18 +56,17 @@ export default function Bars({ playChord }: BarsProps) {
       const beatInterval = (60 / tempo) * 1000; // Convert BPM to milliseconds for a beat
 
       intervalRef.current = setInterval(() => {
-        // Play the chord for the current bar
-        const bar = bars[currentBar];
-        if (bar.chordKey && bar.chordType) {
-          playChord(bar.chordKey, bar.chordType);
-        }
+        // Use a functional update to ensure you get the most up-to-date currentBar
+        setCurrentBar((prevCurrentBar) => {
+          const bar = bars[prevCurrentBar];
+          if (bar.chordKey && bar.chordType) {
+            playChord(bar.chordKey, bar.chordType);
+          }
 
-        // Move to the next bar
-        setCurrentBar((prev) => (prev + 1) % totalBars);
+          // Move to the next bar, wrap around at the last bar
+          return (prevCurrentBar + 1) % totalBars;
+        });
       }, beatInterval * 4); // 4 beats per bar (4/4 time)
-
-      // Stop the playback after one loop of all bars
-      setTimeout(() => stopPlaying(), beatInterval * 4 * totalBars);
     }
   };
 
