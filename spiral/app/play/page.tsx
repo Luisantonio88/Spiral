@@ -1,18 +1,23 @@
 "use client";
 
+import { useEffect, useState, useRef } from "react";
+import Bars from "@/components/Bars";
 import ChordPlayer from "@/components/ChordPlayer";
 import ChordTypeSelector from "@/components/ChordTypeSelector";
 import Header from "@/components/Header";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
-import { useEffect, useState } from "react";
+import ChordManager from "@/components/ChordManager"; // Import ChordManager
 
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
   const [instrument, setInstrument] = useState<string>("rhodes");
   const [chordType, setChordType] = useState<string>("triads"); // Initialize chord type state
-
   const [sprites, setSprites] = useState<{ [key: string]: any }>({});
+
+  const chordManagerRef = useRef<{
+    playChord: (chordName: string, chordType: string) => void;
+  } | null>(null);
 
   const fetchDataForInstrument = async (inst: string) => {
     try {
@@ -43,7 +48,7 @@ export default function Home() {
           sprites={sprites} // Provide your sprites
           activeKeys={activeKeys} // Pass activeKeys as a prop
           setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
-        />{" "}
+        />
       </div>
       <div>
         <ChordPlayer
@@ -51,11 +56,26 @@ export default function Home() {
           sprites={sprites} // Provide your sprites
           setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
           chordType={chordType}
-        />{" "}
+        />
       </div>
       <div className="flex flex-row justify-center gap-8">
         <InstrumentSelector onInstrumentChange={setInstrument} />
         <ChordTypeSelector onChordTypeChange={setChordType} />
+      </div>
+      <ChordManager
+        ref={chordManagerRef}
+        instrument={instrument}
+        sprites={sprites}
+        setActiveKeys={setActiveKeys}
+      />
+      <div className="mt-8">
+        <Bars
+          playChord={(chordName: string, chordType: string) => {
+            if (chordManagerRef.current) {
+              chordManagerRef.current.playChord(chordName, chordType);
+            }
+          }}
+        />
       </div>
     </>
   );

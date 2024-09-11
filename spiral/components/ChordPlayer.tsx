@@ -2,6 +2,8 @@
 
 import React, { useRef } from "react";
 import AudioPlayer from "./AudioPlayer";
+import ChordManager from "./ChordManager"; // Import ChordManager
+import { ChordType, chords } from "@/app/chords";
 
 interface ChordPlayerProps {
   instrument: string;
@@ -16,181 +18,87 @@ export default function ChordPlayer({
   setActiveKeys,
   chordType,
 }: ChordPlayerProps) {
-  type ChordType = "major" | "minor" | "dim" | "maj7" | "min7" | "7" | "min7b5";
-  type Chords = { [key: string]: { [key in ChordType]: string[] } };
-
-  const chords: Chords = {
-    C: {
-      major: ["C3", "E4", "G4", "C5"],
-      minor: ["C3", "Eb4", "G4", "C5"],
-      dim: ["C3", "Eb4", "Gb4", "C5"],
-      maj7: ["C3", "E4", "G4", "B4"],
-      min7: ["C3", "Eb4", "G4", "Bb4"],
-      7: ["C3", "E4", "G4", "Bb4"],
-      min7b5: ["C3", "Eb4", "Gb4", "Bb4"],
-    },
-    Db: {
-      major: ["Db3", "Db4", "F4", "Ab4"],
-      minor: ["Db3", "Db4", "F4", "Ab4"],
-      dim: ["Db3", "Db4", "E4", "G4"],
-      maj7: ["Db3", "F4", "Ab4", "C5"],
-      min7: ["Db3", "E4", "Ab4", "B4"],
-      7: ["Db3", "F4", "Ab4", "B4"],
-      min7b5: ["Db3", "E4", "G4", "B4"],
-    },
-    D: {
-      major: ["D3", "D4", "Gb4", "A4"],
-      minor: ["D3", "D4", "F4", "A4"],
-      dim: ["D3", "D4", "F4", "Ab4"],
-      maj7: ["D3", "Gb4", "A4", "Db5"],
-      min7: ["D3", "F4", "A4", "C5"],
-      7: ["D3", "Gb4", "A4", "C5"],
-      min7b5: ["D3", "F4", "Ab4", "C5"],
-    },
-    Eb: {
-      major: ["Eb3", "Eb4", "G4", "Bb4"],
-      minor: ["Eb3", "Eb4", "Gb4", "Bb4"],
-      dim: ["Eb3", "Eb4", "Gb4", "A4"],
-      maj7: ["Eb3", "D4", "G4", "Bb4"],
-      min7: ["Eb3", "Db4", "Gb4", "Bb4"],
-      7: ["Eb3", "Db4", "G4", "Bb4"],
-      min7b5: ["Eb3", "Db4", "Gb4", "A4"],
-    },
-    E: {
-      major: ["E3", "E4", "Ab4", "B4"],
-      minor: ["E3", "E4", "G4", "B4"],
-      dim: ["E3", "E4", "G4", "Bb4"],
-      maj7: ["E3", "D4", "Ab4", "B4"],
-      min7: ["E3", "D4", "G4", "B4"],
-      7: ["E3", "D4", "Ab4", "B4"],
-      min7b5: ["E3", "D4", "G4", "Bb4"],
-    },
-    F: {
-      major: ["F3", "F4", "A4", "C5"],
-      minor: ["F3", "F4", "Ab4", "C5"],
-      dim: ["F3", "F4", "Ab4", "B4"],
-      maj7: ["F3", "E4", "A4", "C5"],
-      min7: ["F3", "Eb4", "Ab4", "C5"],
-      7: ["F3", "Eb4", "A4", "C5"],
-      min7b5: ["F3", "Eb4", "Ab4", "B4"],
-    },
-    Gb: {
-      major: ["Gb3", "Db4", "Gb4", "Bb4"],
-      minor: ["Gb3", "Db4", "Gb4", "A4"],
-      dim: ["C3", "C4", "Gb4", "A4"],
-      maj7: ["Gb3", "Db4", "F4", "Bb4"],
-      min7: ["Gb3", "Db4", "E4", "A4"],
-      7: ["Gb3", "Db4", "E4", "Bb4"],
-      min7b5: ["Gb3", "C4", "E4", "A4"],
-    },
-    G: {
-      major: ["G3", "D4", "G4", "B4"],
-      minor: ["G3", "D4", "G4", "Bb4"],
-      dim: ["G3", "Db4", "G4", "Bb4"],
-      maj7: ["G3", "D4", "Gb4", "B4"],
-      min7: ["G3", "D4", "F4", "Bb4"],
-      7: ["G3", "D4", "F4", "B4"],
-      min7b5: ["G3", "Db4", "F4", "Bb4"],
-    },
-    Ab: {
-      major: ["Ab3", "Eb4", "Ab4", "C5"],
-      minor: ["Ab3", "Eb4", "Ab4", "B4"],
-      dim: ["Ab3", "D4", "Ab4", "B4"],
-      maj7: ["Ab3", "Eb4", "G4", "C5"],
-      min7: ["Ab3", "Eb4", "Gb4", "B4"],
-      7: ["Ab3", "Eb4", "Gb4", "C5"],
-      min7b5: ["Ab3", "D4", "Gb4", "B4"],
-    },
-    A: {
-      major: ["A3", "E4", "A4", "Db5"],
-      minor: ["A3", "E4", "A4", "C5"],
-      dim: ["A3", "Eb4", "A4", "C5"],
-      maj7: ["A3", "E4", "Ab4", "Db5"],
-      min7: ["A3", "E4", "G4", "C5"],
-      7: ["A3", "E4", "G4", "Db5"],
-      min7b5: ["A3", "Eb4", "G4", "C5"],
-    },
-    Bb: {
-      major: ["Bb3", "D4", "F4", "Bb4"],
-      minor: ["Bb3", "Db4", "F4", "Bb4"],
-      dim: ["Bb3", "Db4", "E4", "Bb4"],
-      maj7: ["Bb3", "F4", "A4", "D5"],
-      min7: ["Bb3", "F4", "Ab4", "Db5"],
-      7: ["Bb3", "F4", "Ab4", "D5"],
-      min7b5: ["Bb3", "E4", "Ab4", "Db5"],
-    },
-    B: {
-      major: ["B3", "Eb4", "Gb4", "B4"],
-      minor: ["B3", "D4", "Gb4", "B4"],
-      dim: ["B3", "D4", "F4", "B4"],
-      maj7: ["B3", "Eb4", "Gb4", "Bb4"],
-      min7: ["B3", "D4", "Gb4", "A4"],
-      7: ["B3", "Eb4", "Gb4", "A4"],
-      min7b5: ["B3", "D4", "F4", "A4"],
-    },
-  };
-
-  const audioPlayerRef = useRef<{
-    playSound: (notes: string | string[]) => void;
+  const chordManagerRef = useRef<{
+    playChord: (chordName: string, chordType: ChordType) => void;
   } | null>(null);
 
   const playChord = (chordKey: string, chordType: ChordType) => {
-    if (audioPlayerRef.current) {
-      const notes = chords[chordKey][chordType];
-      audioPlayerRef.current.playSound(notes);
-      setActiveKeys(notes);
-      setTimeout(() => setActiveKeys([]), 500); // Reset active keys after some time
+    if (chordManagerRef.current) {
+      chordManagerRef.current.playChord(chordKey, chordType);
     }
+  };
+
+  const onDragStart = (
+    e: React.DragEvent<HTMLButtonElement>,
+    chordKey: string,
+    chordType: ChordType
+  ) => {
+    e.dataTransfer.setData("chord", `${chordKey},${chordType}`);
   };
 
   return (
     <>
-      <AudioPlayer
-        ref={audioPlayerRef}
+      <ChordManager
+        ref={chordManagerRef}
         instrument={instrument}
         sprites={sprites}
-      />{" "}
+        setActiveKeys={setActiveKeys} // Pass setActiveKeys to ChordManager
+      />
       {chordType === "triads" && (
         <div className="flex flex-row items-center justify-center mt-8">
           <div className="chord-key Gb">
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "minor")}
               onClick={() => playChord("Bb", "minor")}
             >
               Bb-
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "minor")}
               onClick={() => playChord("Ab", "minor")}
             >
               Ab-
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "major")}
               onClick={() => playChord("Gb", "major")}
             >
               Gb
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "dim")}
               onClick={() => playChord("F", "dim")}
             >
               F&deg;
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "minor")}
               onClick={() => playChord("Eb", "minor")}
             >
               Eb-
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "major")}
               onClick={() => playChord("Db", "major")}
             >
               Db
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "major")}
               onClick={() => playChord("B", "major")}
             >
               Cb
@@ -199,6 +107,8 @@ export default function ChordPlayer({
           <div className="chord-key Db">
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "minor")}
               onClick={() => playChord("Bb", "minor")}
             >
               Bb-
@@ -731,42 +641,56 @@ export default function ChordPlayer({
           <div className="chord-key Gb">
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "min7")}
               onClick={() => playChord("Bb", "min7")}
             >
               Bb-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "min7")}
               onClick={() => playChord("Ab", "min7")}
             >
               Ab-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "maj7")}
               onClick={() => playChord("Gb", "maj7")}
             >
               Gb&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "min7b5")}
               onClick={() => playChord("F", "min7b5")}
             >
               F-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "min7")}
               onClick={() => playChord("Eb", "min7")}
             >
               Eb-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "7")}
               onClick={() => playChord("Db", "7")}
             >
               Db7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "maj7")}
               onClick={() => playChord("B", "maj7")}
             >
               Cb&#9653;7
@@ -775,42 +699,56 @@ export default function ChordPlayer({
           <div className="chord-key Db">
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "min7")}
               onClick={() => playChord("Bb", "min7")}
             >
               Bb-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "7")}
               onClick={() => playChord("Ab", "7")}
             >
               Ab7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "maj7")}
               onClick={() => playChord("Gb", "maj7")}
             >
               Gb&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "min7")}
               onClick={() => playChord("F", "min7")}
             >
               F-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "min7")}
               onClick={() => playChord("Eb", "min7")}
             >
               Eb-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "maj7")}
               onClick={() => playChord("Db", "maj7")}
             >
               Db&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "min7b5")}
               onClick={() => playChord("C", "min7b5")}
             >
               C-7b5
@@ -819,42 +757,56 @@ export default function ChordPlayer({
           <div className="chord-key Ab">
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "min7")}
               onClick={() => playChord("Bb", "min7")}
             >
               Bb-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "maj7")}
               onClick={() => playChord("Ab", "maj7")}
             >
               Ab&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "min7b5")}
               onClick={() => playChord("G", "min7b5")}
             >
               G-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "min7")}
               onClick={() => playChord("F", "min7")}
             >
               F-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "7")}
               onClick={() => playChord("Eb", "7")}
             >
               Eb7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "maj7")}
               onClick={() => playChord("Db", "maj7")}
             >
               Db&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "min7")}
               onClick={() => playChord("C", "min7")}
             >
               C-7
@@ -863,42 +815,56 @@ export default function ChordPlayer({
           <div className="chord-key Eb">
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "7")}
               onClick={() => playChord("Bb", "7")}
             >
               Bb7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "maj7")}
               onClick={() => playChord("Ab", "maj7")}
             >
               Ab&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "min7")}
               onClick={() => playChord("G", "min7")}
             >
               G-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "min7")}
               onClick={() => playChord("F", "min7")}
             >
               F-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "maj7")}
               onClick={() => playChord("Eb", "maj7")}
             >
               Eb&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "min7b5")}
               onClick={() => playChord("D", "min7b5")}
             >
               D-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "min7")}
               onClick={() => playChord("C", "min7")}
             >
               C-7
@@ -907,42 +873,56 @@ export default function ChordPlayer({
           <div className="chord-key Bb">
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "maj7")}
               onClick={() => playChord("Bb", "maj7")}
             >
               Bb&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "min7b5")}
               onClick={() => playChord("A", "min7b5")}
             >
               A-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "min7")}
               onClick={() => playChord("G", "min7")}
             >
               G-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "7")}
               onClick={() => playChord("F", "7")}
             >
               F7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "maj7")}
               onClick={() => playChord("Eb", "maj7")}
             >
               Eb&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "min7")}
               onClick={() => playChord("D", "min7")}
             >
               D-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "min7")}
               onClick={() => playChord("C", "min7")}
             >
               C-7
@@ -951,42 +931,56 @@ export default function ChordPlayer({
           <div className="chord-key F">
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "maj7")}
               onClick={() => playChord("Bb", "maj7")}
             >
               Bb&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "min7")}
               onClick={() => playChord("A", "min7")}
             >
               A-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "min7")}
               onClick={() => playChord("G", "min7")}
             >
               G-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "maj7")}
               onClick={() => playChord("F", "maj7")}
             >
               F&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "min7b5")}
               onClick={() => playChord("E", "min7b5")}
             >
               E-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "min7")}
               onClick={() => playChord("D", "min7")}
             >
               D-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "7")}
               onClick={() => playChord("C", "7")}
             >
               C7
@@ -995,42 +989,56 @@ export default function ChordPlayer({
           <div className="chord-key C main-key">
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "min7b5")}
               onClick={() => playChord("B", "min7b5")}
             >
               B-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "min7")}
               onClick={() => playChord("A", "min7")}
             >
               A-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "7")}
               onClick={() => playChord("G", "7")}
             >
               G7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "maj7")}
               onClick={() => playChord("F", "maj7")}
             >
               F&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "min7")}
               onClick={() => playChord("E", "min7")}
             >
               E-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "min7")}
               onClick={() => playChord("D", "min7")}
             >
               D-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "maj7")}
               onClick={() => playChord("C", "maj7")}
             >
               C&#9653;7
@@ -1039,42 +1047,56 @@ export default function ChordPlayer({
           <div className="chord-key G">
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "min7")}
               onClick={() => playChord("B", "min7")}
             >
               B-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "min7")}
               onClick={() => playChord("A", "min7")}
             >
               A-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "maj7")}
               onClick={() => playChord("G", "maj7")}
             >
               G&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "min7b5")}
               onClick={() => playChord("Gb", "min7b5")}
             >
               F#-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "min7")}
               onClick={() => playChord("E", "min7")}
             >
               E-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "7")}
               onClick={() => playChord("D", "7")}
             >
               D7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "C", "maj7")}
               onClick={() => playChord("C", "maj7")}
             >
               C&#9653;7
@@ -1083,42 +1105,56 @@ export default function ChordPlayer({
           <div className="chord-key D">
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "min7")}
               onClick={() => playChord("B", "min7")}
             >
               B-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "7")}
               onClick={() => playChord("A", "7")}
             >
               A7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "G", "maj7")}
               onClick={() => playChord("G", "maj7")}
             >
               G&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "min7")}
               onClick={() => playChord("Gb", "min7")}
             >
               F#-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "min7")}
               onClick={() => playChord("E", "min7")}
             >
               E-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "maj7")}
               onClick={() => playChord("D", "maj7")}
             >
               D&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "min7b5")}
               onClick={() => playChord("Db", "min7b5")}
             >
               C#-7b5
@@ -1127,42 +1163,56 @@ export default function ChordPlayer({
           <div className="chord-key A">
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "min7")}
               onClick={() => playChord("B", "min7")}
             >
               B-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "maj7")}
               onClick={() => playChord("A", "maj7")}
             >
               A&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "min7b5")}
               onClick={() => playChord("Ab", "min7b5")}
             >
               G#-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "min7")}
               onClick={() => playChord("Gb", "min7")}
             >
               F#-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "7")}
               onClick={() => playChord("E", "7")}
             >
               E7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "D", "maj7")}
               onClick={() => playChord("D", "maj7")}
             >
               D&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "min7")}
               onClick={() => playChord("Db", "min7")}
             >
               C#-7
@@ -1171,42 +1221,56 @@ export default function ChordPlayer({
           <div className="chord-key E">
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "7")}
               onClick={() => playChord("B", "7")}
             >
               B7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "A", "maj7")}
               onClick={() => playChord("A", "maj7")}
             >
               A&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "min7")}
               onClick={() => playChord("Ab", "min7")}
             >
               G#-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "min7")}
               onClick={() => playChord("Gb", "min7")}
             >
               F#-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "maj7")}
               onClick={() => playChord("E", "maj7")}
             >
               E&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "min7b5")}
               onClick={() => playChord("Eb", "min7b5")}
             >
               D#-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "min7")}
               onClick={() => playChord("Db", "min7")}
             >
               C#-7
@@ -1215,42 +1279,56 @@ export default function ChordPlayer({
           <div className="chord-key B">
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "maj7")}
               onClick={() => playChord("B", "maj7")}
             >
               B&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "min7b5")}
               onClick={() => playChord("Bb", "min7b5")}
             >
               A#-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "min7")}
               onClick={() => playChord("Ab", "min7")}
             >
               G#-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "7")}
               onClick={() => playChord("Gb", "7")}
             >
               F#7
             </button>
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "E", "maj7")}
               onClick={() => playChord("E", "maj7")}
             >
               E&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "min7")}
               onClick={() => playChord("Eb", "min7")}
             >
               D#-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "min7")}
               onClick={() => playChord("Db", "min7")}
             >
               C#-7
@@ -1259,42 +1337,56 @@ export default function ChordPlayer({
           <div className="chord-key F#">
             <button
               className="chord-button IV"
+              draggable
+              onDragStart={(e) => onDragStart(e, "B", "maj7")}
               onClick={() => playChord("B", "maj7")}
             >
               B&#9653;7
             </button>
             <button
               className="chord-button III"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Bb", "min7")}
               onClick={() => playChord("Bb", "min7")}
             >
               A#-7
             </button>
             <button
               className="chord-button II"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Ab", "min7")}
               onClick={() => playChord("Ab", "min7")}
             >
               G#-7
             </button>
             <button
               className="chord-button I"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Gb", "maj7")}
               onClick={() => playChord("Gb", "maj7")}
             >
               F#&#9653;7
             </button>
             <button
               className="chord-button VII"
+              draggable
+              onDragStart={(e) => onDragStart(e, "F", "min7b5")}
               onClick={() => playChord("F", "min7b5")}
             >
               E#-7b5
             </button>
             <button
               className="chord-button VI"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Eb", "min7")}
               onClick={() => playChord("Eb", "min7")}
             >
               D#-7
             </button>
             <button
               className="chord-button V"
+              draggable
+              onDragStart={(e) => onDragStart(e, "Db", "min7")}
               onClick={() => playChord("Db", "7")}
             >
               C#7
