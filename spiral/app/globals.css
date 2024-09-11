@@ -41,5 +41,9 @@
 }
 
 .bar {
-  @apply flex justify-center items-center text-2xl text-cyan-700 w-48 h-24 shadow-cyan-500 shadow bg-cyan-50 rounded-xl hover:bg-cyan-100 hover:shadow-none active:bg-white transition duration-500;
+  @apply flex justify-center items-center text-2xl text-cyan-700 active:text-cyan-700 active:bg-cyan-50 w-48 h-24 shadow-cyan-500 border-none shadow bg-cyan-50 rounded-xl hover:bg-cyan-400 hover:text-white hover:shadow-none  transition duration-500;
+}
+
+.bars-button {
+  @apply shadow shadow-cyan-500 rounded-lg hover:bg-cyan-100 hover:shadow-none active:bg-cyan-50 transition duration-500;
 }
