@@ -92,7 +92,7 @@ export default function Bars({ playChord }: BarsProps) {
       id="playerContainer"
       className="flex flex-row w-full mt-4 justify-center items-center gap-8 m-2"
     >
-      <div className="flex flex-col justify-items items-center gap-2">
+      <div className="flex flex-col gap-2">
         <button onClick={startPlaying} disabled={isPlaying}>
           <Image
             className="bars-button"
