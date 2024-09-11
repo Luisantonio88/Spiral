@@ -28,12 +28,12 @@ export default function Bars({ playChord }: BarsProps) {
 
   const onDrop = (e: React.DragEvent<HTMLDivElement>, index: number) => {
     const chord = e.dataTransfer.getData("chord");
-    const [chordKey, chordType] = chord.split(",");
+    const [chordDisplay, chordKey, chordType] = chord.split(",");
 
     const updatedBars = [...bars];
     updatedBars[index] = {
       ...updatedBars[index],
-      chordName: chordKey + (chordType ? chordType : ""),
+      chordName: chordDisplay,
       chordKey,
       chordType,
     };
