@@ -4,7 +4,6 @@ import { useEffect, useState, useRef } from "react";
 import Bars from "@/components/Bars";
 import ChordPlayer from "@/components/ChordPlayer";
 import ChordTypeSelector from "@/components/ChordTypeSelector";
-import Header from "@/components/Header";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
 import ChordManager from "@/components/ChordManager"; // Import ChordManager
@@ -41,7 +40,6 @@ export default function Home() {
 
   return (
     <>
-      <Header />
       <div className="mt-16">
         <Piano
           instrument={instrument}
