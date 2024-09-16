@@ -52,6 +52,6 @@
   @apply rounded-full p-2  hover:scale-110 active:bg-cyan-200 bg-cyan-400 transition duration-500;
 }
 
-button {
+.theory-button {
   @apply p-2 text-white hover:bg-cyan-400 hover:scale-110 transition-all duration-500 rounded-lg;
 }

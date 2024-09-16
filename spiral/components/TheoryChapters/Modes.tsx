@@ -1,5 +1,5 @@
 import React from "react";
 
 export default function Modes() {
-  return <div></div>;
+  return <div>Modes</div>;
 }
