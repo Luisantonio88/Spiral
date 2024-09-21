@@ -57,7 +57,7 @@
 }
 
 .theory-image {
-  @apply shadow shadow-cyan-500 rounded-lg mt-16 p-4;
+  @apply shadow shadow-cyan-500 rounded-lg mt-16 p-4 m-4;
 }
 
 .svg-container {
