@@ -8,7 +8,7 @@ export default function CircleOfFifths() {
         <svg width="400" height="400" viewBox="0 0 400 400">
           <g transform="translate(200,200) rotate(15)">
             <path
-              className="fill-current text-cyan-300 transition-colors duration-500 hover:text-cyan-500 active:text-cyan-100"
+              className="fill-current text-cyan-300 transition-colors duration-500 hover:text-cyan-500 active:text-cyan-200"
               d="M0,0 L180,0 A180,180 0 0,1 155.88,90 Z"
               stroke-width="2"
               stroke="white"

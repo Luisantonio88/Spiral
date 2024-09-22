@@ -5,7 +5,10 @@ export type ChordType =
   | "maj7"
   | "min7"
   | "7"
-  | "min7b5";
+  | "min7b5"
+  | "maj9"
+  | "min9"
+  | "9";
 export type Chords = { [key: string]: { [key in ChordType]: string[] } };
 
 export const chords: Chords = {
@@ -17,6 +20,9 @@ export const chords: Chords = {
     min7: ["C3", "Eb4", "G4", "Bb4"],
     7: ["C3", "E4", "G4", "Bb4"],
     min7b5: ["C3", "Eb4", "Gb4", "Bb4"],
+    maj9: ["C3", "E4", "B4", "D5"],
+    min9: ["C3", "Eb4", "Bb4", "D5"],
+    9: ["C3", "E4", "Bb4", "D5"],
   },
   Db: {
     major: ["Db3", "Db4", "F4", "Ab4"],
@@ -26,6 +32,9 @@ export const chords: Chords = {
     min7: ["Db3", "E4", "Ab4", "B4"],
     7: ["Db3", "F4", "Ab4", "B4"],
     min7b5: ["Db3", "E4", "G4", "B4"],
+    maj9: ["Db3", "F4", "Ab4", "C5", "Eb5"],
+    min9: ["Db3", "E4", "Ab4", "B4", "Eb5"],
+    9: ["Db3", "F4", "Ab4", "B4", "Eb5"],
   },
   D: {
     major: ["D3", "D4", "Gb4", "A4"],
@@ -35,6 +44,9 @@ export const chords: Chords = {
     min7: ["D3", "F4", "A4", "C5"],
     7: ["D3", "Gb4", "A4", "C5"],
     min7b5: ["D3", "F4", "Ab4", "C5"],
+    maj9: ["D3", "Gb4", "A4", "Db5", "E5"],
+    min9: ["D3", "F4", "A4", "C5", "E5"],
+    9: ["D3", "Gb4", "A4", "C5", "E5"],
   },
   Eb: {
     major: ["Eb3", "Eb4", "G4", "Bb4"],
@@ -44,6 +56,9 @@ export const chords: Chords = {
     min7: ["Eb3", "Db4", "Gb4", "Bb4"],
     7: ["Eb3", "Db4", "G4", "Bb4"],
     min7b5: ["Eb3", "Db4", "Gb4", "A4"],
+    maj9: ["Eb3", "D4", "F4", "G4", "Bb4"],
+    min9: ["Eb3", "Db4", "F4", "Gb4", "Bb4"],
+    9: ["Eb3", "Db4", "F4", "G4", "Bb4"],
   },
   E: {
     major: ["E3", "E4", "Ab4", "B4"],
@@ -53,6 +68,9 @@ export const chords: Chords = {
     min7: ["E3", "D4", "G4", "B4"],
     7: ["E3", "D4", "Ab4", "B4"],
     min7b5: ["E3", "D4", "G4", "Bb4"],
+    maj9: ["E3", "D4", "Gb4", "Ab4", "B4"],
+    min9: ["E3", "D4", "Gb4", "G4", "B4"],
+    9: ["E3", "D4", "Gb4", "Ab4", "B4"],
   },
   F: {
     major: ["F3", "F4", "A4", "C5"],
@@ -62,6 +80,9 @@ export const chords: Chords = {
     min7: ["F3", "Eb4", "Ab4", "C5"],
     7: ["F3", "Eb4", "A4", "C5"],
     min7b5: ["F3", "Eb4", "Ab4", "B4"],
+    maj9: ["F3", "E4", "G4", "A4", "C5"],
+    min9: ["F3", "Eb4", "G4", "Ab4", "C5"],
+    9: ["F3", "Eb4", "G4", "A4", "C5"],
   },
   Gb: {
     major: ["Gb3", "Db4", "Gb4", "Bb4"],
@@ -71,6 +92,9 @@ export const chords: Chords = {
     min7: ["Gb3", "Db4", "E4", "A4"],
     7: ["Gb3", "Db4", "E4", "Bb4"],
     min7b5: ["Gb3", "C4", "E4", "A4"],
+    maj9: ["Gb3", "Db4", "F4", "Ab4", "Bb4"],
+    min9: ["Gb3", "Db4", "E4", "Ab4", "A4"],
+    9: ["Gb3", "Db4", "E4", "Ab4", "Bb4"],
   },
   G: {
     major: ["G3", "D4", "G4", "B4"],
@@ -80,6 +104,9 @@ export const chords: Chords = {
     min7: ["G3", "D4", "F4", "Bb4"],
     7: ["G3", "D4", "F4", "B4"],
     min7b5: ["G3", "Db4", "F4", "Bb4"],
+    maj9: ["G3", "D4", "Gb4", "A", "B4"],
+    min9: ["G3", "D4", "F4", "A", "Bb4"],
+    9: ["G3", "D4", "F4", "A", "B4"],
   },
   Ab: {
     major: ["Ab3", "Eb4", "Ab4", "C5"],
@@ -89,6 +116,9 @@ export const chords: Chords = {
     min7: ["Ab3", "Eb4", "Gb4", "B4"],
     7: ["Ab3", "Eb4", "Gb4", "C5"],
     min7b5: ["Ab3", "D4", "Gb4", "B4"],
+    maj9: ["Ab3", "Eb4", "G4", "Bb4", "C5"],
+    min9: ["Ab3", "Eb4", "Gb4", "Bb4", "B4"],
+    9: ["Ab3", "Eb4", "Gb4", "Bb4", "C5"],
   },
   A: {
     major: ["A3", "E4", "A4", "Db5"],
@@ -98,6 +128,9 @@ export const chords: Chords = {
     min7: ["A3", "E4", "G4", "C5"],
     7: ["A3", "E4", "G4", "Db5"],
     min7b5: ["A3", "Eb4", "G4", "C5"],
+    maj9: ["A3", "E4", "Ab4", "B", "Db5"],
+    min9: ["A3", "E4", "G4", "B", "C5"],
+    9: ["A3", "E4", "G4", "B", "Db5"],
   },
   Bb: {
     major: ["Bb3", "D4", "F4", "Bb4"],
@@ -107,6 +140,9 @@ export const chords: Chords = {
     min7: ["Bb3", "F4", "Ab4", "Db5"],
     7: ["Bb3", "F4", "Ab4", "D5"],
     min7b5: ["Bb3", "E4", "Ab4", "Db5"],
+    maj9: ["Bb3", "F4", "A4", "C", "D5"],
+    min9: ["Bb3", "F4", "Ab4", "C", "Db5"],
+    9: ["Bb3", "F4", "Ab4", "C", "D5"],
   },
   B: {
     major: ["B3", "Eb4", "Gb4", "B4"],
@@ -116,5 +152,8 @@ export const chords: Chords = {
     min7: ["B3", "D4", "Gb4", "A4"],
     7: ["B3", "Eb4", "Gb4", "A4"],
     min7b5: ["B3", "D4", "F4", "A4"],
+    maj9: ["B3", "Eb4", "Gb4", "Bb4", "Db5"],
+    min9: ["B3", "D4", "Gb4", "A4", "Db5"],
+    9: ["B3", "Eb4", "Gb4", "A4", "Db5"],
   },
 };
