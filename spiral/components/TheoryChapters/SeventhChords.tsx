@@ -1,5 +1,9 @@
 import React from "react";
 
 export default function SeventhChords() {
-  return <div>SeventhChords</div>;
+  return (
+    <div className="flex flex-col w-full justify-center items-center">
+      <h1>Seventh Chords</h1>
+    </div>
+  );
 }
