@@ -13,6 +13,7 @@ interface BarsProps {
 }
 
 export default function Bars({ playChord }: BarsProps) {
+  const [numBars, setNumBars] = useState<number>(4); // Default to 4 bars
   const [bars, setBars] = useState<Bar[]>([
     { id: 1, chordName: "Drag", chordKey: "", chordType: "" },
     { id: 2, chordName: "Drop", chordKey: "", chordType: "" },
@@ -93,6 +94,30 @@ export default function Bars({ playChord }: BarsProps) {
     };
   }, []);
 
+  const handleNumBarsChange = (newNumBars: number) => {
+    if (newNumBars < 4 || newNumBars > 16) return; // Ensure the number is between 4 and 32
+    setNumBars(newNumBars);
+
+    // Adjust the bars array length
+    const updatedBars = [...bars];
+    if (newNumBars > bars.length) {
+      // Add new bars if increasing the number
+      for (let i = bars.length; i < newNumBars; i++) {
+        updatedBars.push({
+          id: i + 1,
+          chordName: `Bar ${i + 1}`,
+          chordKey: "",
+          chordType: "",
+        });
+      }
+    } else if (newNumBars < bars.length) {
+      // Remove bars if decreasing the number
+      updatedBars.length = newNumBars;
+    }
+
+    setBars(updatedBars);
+  };
+
   return (
     <div
       id="playerContainer"
@@ -118,19 +143,21 @@ export default function Bars({ playChord }: BarsProps) {
           />
         </button>
       </div>
-      {bars.map((bar, index) => (
-        <div
-          key={bar.id}
-          className={`bar w-20 h-20 border text-center flex justify-center items-center ${
-            index === currentBar ? "active-bar" : ""
-          }`}
-          onDrop={(e) => onDrop(e, index)}
-          onDragOver={onDragOver}
-          onClick={() => handleBarClick(bar.chordKey, bar.chordType)}
-        >
-          {bar.chordName}
-        </div>
-      ))}
+      <div className="grid grid-cols-4 gap-4 justify-center">
+        {bars.map((bar, index) => (
+          <div
+            key={bar.id}
+            className={`bar w-20 h-20 border text-center flex justify-center items-center ${
+              index === currentBar ? "active-bar" : ""
+            }`}
+            onDrop={(e) => onDrop(e, index)}
+            onDragOver={onDragOver}
+            onClick={() => handleBarClick(bar.chordKey, bar.chordType)}
+          >
+            {bar.chordName}
+          </div>
+        ))}
+      </div>
       <div className="flex flex-col items-center justify-center">
         <label htmlFor="tempo" className="mb-2">
           Tempo
@@ -143,6 +170,18 @@ export default function Bars({ playChord }: BarsProps) {
           min={30}
           max={240}
           step={1}
+          className="p-1 shadow shadow-cyan-500 rounded-lg"
+        />
+        <label htmlFor="numBars" className="mb-2">
+          Number of Bars
+        </label>
+        <input
+          id="numBars"
+          type="number"
+          value={numBars}
+          onChange={(e) => handleNumBarsChange(Number(e.target.value))}
+          min={4}
+          max={32}
           className="p-1 shadow shadow-cyan-500 rounded-lg"
         />
       </div>
