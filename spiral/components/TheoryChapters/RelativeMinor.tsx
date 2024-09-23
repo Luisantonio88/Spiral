@@ -5,6 +5,8 @@ export default function RelativeMinor() {
   return (
     <div className="flex flex-col w-full justify-center items-center">
       <h1>Relative Minor</h1>
+      <h2>C Minor Scale</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/minorscalea.png"}
@@ -12,6 +14,8 @@ export default function RelativeMinor() {
         height={500}
         alt="minorscalea"
       />
+      <h2>A Minor Scale</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/minorscalec.png"}
@@ -110,6 +114,8 @@ export default function RelativeMinor() {
         <div className="circle-text n11">D-</div>
         <div className="circle-text n12">A-</div>
       </div>
+      <h2>Circle of Fifths with major and minor tonalities</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/circle.png"}

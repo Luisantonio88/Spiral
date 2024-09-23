@@ -5,6 +5,7 @@ export default function Notes() {
   return (
     <div className="flex flex-col w-full justify-center items-center">
       <h1>Notes</h1>
+      <h2>12 notes in music</h2>
       <Image
         className="theory-image"
         src={"/Theory/notes.png"}
@@ -12,6 +13,7 @@ export default function Notes() {
         height={500}
         alt="notes"
       />
+      <h2>Flats</h2>
       <Image
         className="theory-image"
         src={"/Theory/flat.png"}
@@ -19,6 +21,7 @@ export default function Notes() {
         height={500}
         alt="flats"
       />
+      <h2>Sharps</h2>
       <Image
         className="theory-image"
         src={"/Theory/sharp.png"}

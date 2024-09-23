@@ -5,18 +5,18 @@ export default function Triads() {
   return (
     <div className="flex flex-col w-full justify-center items-center">
       <h1>Triads</h1>
-      <table className="mt-16">
+      <table className="mt-12 mb-8 shadow-md shadow-cyan-500 rounded-xl">
         <tr>
-          <th>Major</th>
-          <th>Minor</th>
-          <th>Diminished</th>
-          <th>Augmented</th>
+          <th className="p-4">Major</th>
+          <th className="p-4">Minor</th>
+          <th className="p-4">Diminished</th>
+          <th className="p-4">Augmented</th>
         </tr>
         <tr>
-          <td> Perfect Fifth</td>
-          <td> Perfect Fifth</td>
-          <td> Diminished Fifth</td>
-          <td> Augmented Fifth</td>
+          <td>Root </td>
+          <td>Root </td>
+          <td>Root </td>
+          <td>Root </td>
         </tr>
         <tr>
           <td> Major Third</td>
@@ -25,10 +25,10 @@ export default function Triads() {
           <td> Major Third </td>
         </tr>
         <tr>
-          <td>Root </td>
-          <td>Root </td>
-          <td>Root </td>
-          <td>Root </td>
+          <td> Perfect Fifth</td>
+          <td> Perfect Fifth</td>
+          <td> Diminished Fifth</td>
+          <td> Augmented Fifth</td>
         </tr>
         <tr>
           <td>R 3 5</td>
@@ -75,6 +75,8 @@ export default function Triads() {
           </td>
         </tr>
       </table>
+      <h2>C Harmonics</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/charmonics.png"}
@@ -82,6 +84,7 @@ export default function Triads() {
         height={500}
         alt="minorscalec"
       />
+      <h2>C Triads</h2>
 
       <Image
         className="theory-image"
@@ -90,6 +93,8 @@ export default function Triads() {
         height={500}
         alt="minorscalec"
       />
+      <h2>F Triads</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/ftriads.png"}
@@ -97,6 +102,8 @@ export default function Triads() {
         height={500}
         alt="minorscalec"
       />
+      <h2>D Triads</h2>
+
       <Image
         className="theory-image"
         src={"/Theory/dtriads.png"}

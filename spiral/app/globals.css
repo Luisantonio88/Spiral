@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+h1 {
+  @apply text-xl mb-8 text-slate-700;
+}
+
+h2 {
+  @apply text-lg mb-4 mt-4 text-cyan-700;
+}
+
+td {
+  @apply p-2 text-sm text-cyan-700;
+}
+
+p {
+  @apply text-slate-700;
+}
 .text-gradient {
   background-image: radial-gradient(circle, #4f46e5, #22d3ee);
   -webkit-background-clip: text;
@@ -57,7 +72,7 @@
 }
 
 .theory-image {
-  @apply shadow shadow-cyan-500 rounded-lg mt-12 mb-8 p-4 m-4 hover:scale-105 transition duration-1000;
+  @apply shadow shadow-cyan-500 rounded-lg mt-4 mb-4 p-4 m-4 hover:scale-105 transition duration-1000;
 }
 
 .svg-container {
