@@ -7,6 +7,7 @@ import ChordTypeSelector from "@/components/ChordTypeSelector";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
 import ChordManager from "@/components/ChordManager"; // Import ChordManager
+import Metronome from "@/components/Metronome";
 
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
@@ -75,6 +76,7 @@ export default function Home() {
           }}
         />
       </div>
+      <Metronome audioPlayerRef={} />
     </>
   );
 }

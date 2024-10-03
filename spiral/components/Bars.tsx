@@ -1,4 +1,4 @@
-import Image from "next/image";
+import PlayerControls from "./PlayerControls"; // Import the new component
 import React, { useState, useEffect, useRef } from "react";
 
 interface Bar {
@@ -98,26 +98,13 @@ export default function Bars({ playChord }: BarsProps) {
       id="playerContainer"
       className="flex flex-row w-full mt-4 justify-center items-center gap-8 m-2"
     >
-      <div className="flex flex-col gap-2">
-        <button onClick={startPlaying} disabled={isPlaying}>
-          <Image
-            className="bars-button"
-            src={"/play.svg"}
-            alt="play"
-            width={45}
-            height={45}
-          />
-        </button>
-        <button onClick={stopPlaying} disabled={!isPlaying}>
-          <Image
-            className="bars-button"
-            src={"/stop.svg"}
-            alt="stop"
-            width={45}
-            height={45}
-          />
-        </button>
-      </div>
+      <PlayerControls
+        onPlay={startPlaying}
+        onStop={stopPlaying}
+        onTempoChange={setTempo}
+        isPlaying={isPlaying}
+        tempo={tempo}
+      />
       {bars.map((bar, index) => (
         <div
           key={bar.id}
@@ -131,21 +118,6 @@ export default function Bars({ playChord }: BarsProps) {
           {bar.chordName}
         </div>
       ))}
-      <div className="flex flex-col items-center justify-center">
-        <label htmlFor="tempo" className="mb-2">
-          Tempo
-        </label>
-        <input
-          id="tempo"
-          type="number"
-          value={tempo}
-          onChange={(e) => setTempo(Number(e.target.value))}
-          min={30}
-          max={240}
-          step={1}
-          className="p-1 shadow shadow-cyan-500 rounded-lg"
-        />
-      </div>
     </div>
   );
 }
