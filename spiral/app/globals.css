@@ -141,3 +141,11 @@ p {
   left: 50%;
   transform: translate(-50%, 0%);
 }
+
+.fret {
+  @apply bg-slate-100 h-5 w-20 border-t-8 border-b-8 border-r-2 border-cyan-500 hover:bg-cyan-200;
+}
+
+.fret-active {
+  @apply bg-black text-white border-yellow-500;
+}
