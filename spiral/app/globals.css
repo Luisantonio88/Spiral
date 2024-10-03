@@ -143,9 +143,21 @@ p {
 }
 
 .fret {
-  @apply bg-slate-100 h-5 w-20 border-t-8 border-b-8 border-r-2 border-cyan-500 hover:bg-cyan-200;
+  @apply bg-slate-100 h-5 w-20 border-t-8 border-b-8 border-r border-cyan-500 hover:bg-white hover:border-cyan-300 active:bg-white transition duration-200 border-r-white border-l border-l-white;
 }
 
 .fret-active {
-  @apply bg-black text-white border-yellow-500;
+  @apply bg-black;
+}
+
+.fret:first-child {
+  @apply bg-cyan-400 w-5 h-5 border-t-0 border-b-0 hover:bg-cyan-300 rounded-md active:bg-white;
+}
+
+.fret:nth-child(4),
+.fret:nth-child(6),
+.fret:nth-child(8),
+.fret:nth-child(10),
+.fret:nth-child(13) {
+  @apply border-cyan-400 hover:border-cyan-200 active:bg-white transition duration-200 border-r-white border-r border-l border-l-white;
 }
