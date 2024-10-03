@@ -47,15 +47,13 @@ export default function Home() {
           instrument={instrument}
           sprites={sprites} // Provide your sprites
           activeKeys={activeKeys} // Pass activeKeys as a prop
-          setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
         />
       </div>
       <div className="mt-16">
         <Guitar
           instrument={instrument}
           sprites={sprites} // Provide your sprites
-          activeStrings={activeStrings} // Pass activeKeys as a prop
-          setActiveStrings={setActiveStrings} // Pass the setActiveKeys function
+          activeStrings={activeKeys} // Pass activeKeys as a prop
         />
       </div>
       <div>

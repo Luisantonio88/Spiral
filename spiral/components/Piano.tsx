@@ -7,15 +7,9 @@ interface PianoProps {
   instrument: string;
   sprites: { [key: string]: any };
   activeKeys: string[];
-  setActiveKeys: (keys: string[]) => void;
 }
 
-export default function Piano({
-  instrument,
-  sprites,
-  activeKeys,
-  setActiveKeys,
-}: PianoProps) {
+export default function Piano({ instrument, sprites, activeKeys }: PianoProps) {
   const audioPlayerRef = useRef<{
     playSound: (notes: string | string[]) => void;
   } | null>(null);

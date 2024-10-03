@@ -7,14 +7,12 @@ interface GuitarProps {
   instrument: string;
   sprites: { [key: string]: any };
   activeStrings: string[];
-  setActiveStrings: (strings: string[]) => void;
 }
 
 export default function Guitar({
   instrument,
   sprites,
   activeStrings,
-  setActiveStrings,
 }: GuitarProps) {
   const audioPlayerRef = useRef<{
     playSound: (notes: string | string[]) => void;
@@ -26,7 +24,6 @@ export default function Guitar({
     }
   };
 
-  // Define the guitar strings and frets
   const strings = [
     {
       name: "e",
