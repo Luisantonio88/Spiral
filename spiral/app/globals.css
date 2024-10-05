@@ -143,7 +143,7 @@ p {
 }
 
 .fret {
-  @apply bg-slate-100 h-5 w-20 border-t-8 border-b-8 border-r border-cyan-500 hover:bg-white hover:border-cyan-200 active:border-cyan-50 active:bg-cyan-300 transition duration-200 border-r-white border-l border-l-white;
+  @apply bg-slate-100 h-5 w-16 border-t-8 border-b-8 border-r border-cyan-500 hover:bg-white hover:border-cyan-200 active:border-cyan-50 active:bg-cyan-300 transition duration-200;
 }
 
 .fret-active {
@@ -162,14 +162,16 @@ p {
 .fret:nth-child(6),
 .fret:nth-child(8),
 .fret:nth-child(10),
-.fret:nth-child(13) {
-  @apply border-cyan-400 hover:border-cyan-200 active:border-cyan-50 active:bg-cyan-300 transition duration-200 border-r-white border-r border-l border-l-white;
+.fret:nth-child(13),
+.fret:nth-child(16) {
+  @apply border-cyan-400 hover:border-cyan-200 active:border-cyan-50 active:bg-cyan-300 transition duration-200;
 }
 
 .fret-active:nth-child(4),
 .fret-active:nth-child(6),
 .fret-active:nth-child(8),
 .fret-active:nth-child(10),
-.fret-active:nth-child(13) {
+.fret-active:nth-child(13),
+.fret-active:nth-child(16) {
   @apply bg-cyan-300 border-cyan-100;
 }
