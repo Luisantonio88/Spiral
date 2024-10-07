@@ -7,6 +7,8 @@ import ChordTypeSelector from "@/components/ChordTypeSelector";
 import InstrumentSelector from "@/components/InstrumentSelector";
 import Piano from "@/components/Piano";
 import ChordManager from "@/components/ChordManager"; // Import ChordManager
+import SheetMusic from "@/components/SheetMusic";
+import BasicStave from "@/components/BasicStave";
 
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
@@ -40,14 +42,18 @@ export default function Home() {
 
   return (
     <>
-      <div className="mt-16">
+      <div className="mt-16 flex flex-row justify-center items-center">
         <Piano
           instrument={instrument}
           sprites={sprites} // Provide your sprites
           activeKeys={activeKeys} // Pass activeKeys as a prop
           setActiveKeys={setActiveKeys} // Pass the setActiveKeys function
         />
+        <div className="bg-cyan-50 flex justify-center items-center m-4 rounded-xl border border-cyan-500 border-b-4 shadow-md">
+          <BasicStave notes={activeKeys} />
+        </div>
       </div>
+
       <div>
         <ChordPlayer
           instrument={instrument}
