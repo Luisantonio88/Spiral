@@ -5,11 +5,12 @@ import Bars from "@/components/Bars";
 import ChordPlayer from "@/components/ChordPlayer";
 import ChordTypeSelector from "@/components/ChordTypeSelector";
 import InstrumentSelector from "@/components/InstrumentSelector";
-import Piano from "@/components/Piano";
 import ChordManager from "@/components/ChordManager"; // Import ChordManager
+import Guitar from "@/components/Guitar";
 
 export default function Home() {
   const [activeKeys, setActiveKeys] = useState<string[]>([]);
+  const [activeStrings, setActiveStrings] = useState<string[]>([]); // State for guitar strings
   const [instrument, setInstrument] = useState<string>("rhodes");
   const [chordType, setChordType] = useState<string>("triads"); // Initialize chord type state
   const [sprites, setSprites] = useState<{ [key: string]: any }>({});
@@ -41,10 +42,10 @@ export default function Home() {
   return (
     <>
       <div className="mt-16">
-        <Piano
+        <Guitar
           instrument={instrument}
           sprites={sprites} // Provide your sprites
-          activeKeys={activeKeys} // Pass activeKeys as a prop
+          activeStrings={activeKeys} // Pass activeKeys as a prop
         />
       </div>
       <div>

@@ -23,7 +23,7 @@ export default function Home() {
         <ButtonMain text="Play" icon="listen.svg" href="/play" />
         <ButtonMain text="Theory" icon="tv.svg" href="/theory" />
         <ButtonMain text="Piano" icon="piano.svg" href="/" />
-        <ButtonMain text="Guitar" icon="guitar-pick.svg" href="/" />
+        <ButtonMain text="Guitar" icon="guitar-pick.svg" href="guitar" />
         <ButtonMain text="Listen" icon="headphones.svg" href="/" />
         <ButtonMain text="Videos" icon="youtube.svg" href="/" />
         <ButtonMain text="Book" icon="book.svg" href="/" />
